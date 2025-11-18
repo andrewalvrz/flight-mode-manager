@@ -28,12 +28,14 @@ stateDiagram-v2
 
 # Clean previous builds
 
-```make clean
+```
+make clean
 
 ```
 # Build the Flight Mode Manager
 
-```make all
+```
+make all
 
 ```
 # Run
