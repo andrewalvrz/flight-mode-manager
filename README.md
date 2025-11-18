@@ -8,15 +8,8 @@ satellite/CubeSat. It demonstrates:
 - Fault detection logic (IMU/GPS/CPU/power)
 - Telemetry packet formatter (binary-like)
 - Unit tests and a "SIMRUN" simulation mode
-## Build
-Requirements:
-- g++ (C++17), make
-- Python 3 for the day-in-life script
-Build:
-```bash
-make all
 
-##Diagram
+## STATE MACHINE
 
 
 stateDiagram-v2
@@ -29,3 +22,13 @@ stateDiagram-v2
  DEGRADED --> SAFE: recover
  * --> SHUTDOWN: critical_fault
  SHUTDOWN --> [*]
+
+
+## Build
+Requirements:
+- g++ (C++17), make
+- Python 3 for the day-in-life script
+Build:
+```bash
+make all
+
