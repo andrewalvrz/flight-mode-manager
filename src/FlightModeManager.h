@@ -1,59 +1,32 @@
 #pragma once
-
-#include <atomic>
-#include <chrono>
-#include <cstdint>
-#include <functional>
-#include "Watchdog.h"
 #include "FaultDetector.h"
 #include "CommandHandler.h"
+#include "Watchdog.h"
 #include "Telemetry.h"
+#include <chrono>
+#include <vector>
+#include <string>
 
+enum class FlightMode { BOOT=0, SAFE, NOMINAL, PAYLOAD, DEGRADED, SHUTDOWN };
 
-enum class FlightMode {
-
-    BOOT,
-    SAFE,
-    NOMINAL,
-    PAYLOAD,
-    DEGRADED,
-    SHUTDOWN
-};
-
-class FligthModeManager{
-
-
-
+class FlightModeManager {
 public:
-
-    FligthModeManager();
-
-    void start (bool simulate = false);
-
+    FlightModeManager();
+    void start(bool simulate = false);  
     void step();
     FlightMode getMode() const;
-
-    void handleCommand(const std:: string& cmd);
+    void handleCommand(const std::string& cmd);
 
 private:
-
-    void transitionTo(FlightMode m);
-
-    void evaluateFaults();
+    void transitionTo(FlightMode newMode);
 
     FlightMode mode_;
+    bool simulate_;
+    bool running_{false};
+    std::chrono::steady_clock::time_point bootTime_;
+
     Watchdog wd_;
     FaultDetector fd_;
     CommandHandler ch_;
     Telemetry tx_;
-
-    std::chrono::steady_clock::time_point bootTime_;
-    bool simulate;
-
-
-}
-
-
-
-
-
+};
